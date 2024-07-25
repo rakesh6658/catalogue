@@ -14,9 +14,9 @@ pipeline {
                 echo "unit testing"
             }
         }
-        stage('Deploy') {
+        stage('sonar-scanner') {
             steps {
-                echo "ready for deployment"
+                sh 'sonar-scanner'
             }
         }
     }
