@@ -27,7 +27,10 @@ pipeline {
         }
     }
     post{
-        echo "cleaning up workspace"
+        always{
+            echo "cleaning up workspace"
         deleteDirectories()
+        }
+        
     }
 }
