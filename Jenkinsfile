@@ -25,7 +25,7 @@ pipeline {
                 sh 'zip -r  catalogue.zip ./* --exclude=.git --exclude=.zip'
             }
         }
-        stage('publish artifactory')
+        stage('publish artifactory'){
         steps{
              nexusArtifactUploader(
         nexusVersion: 'nexus3',
