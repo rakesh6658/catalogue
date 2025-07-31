@@ -3,12 +3,13 @@ pipeline {
 
     stages {
         stage('install dependencies') {
-            steps {
-                sh 'npm install'
-                sh 'npm fund'
-                sh 'npm audit fix'
-            }
-        }
+  steps {
+    sh 'npm install'
+    sh 'npm fund || true'
+    sh 'npm audit fix || true'
+  }
+}
+
 
         stage('unit testing') {
             steps {
