@@ -19,6 +19,11 @@ stage('unit testing') {
         //         sh'sonar-scanner'
         //     }
         // }
+        stage('build'){
+            steps{
+                sh 'zip -r catalogue.zip . -x "*.zip" ".git/*" '
+            }
+        }
         
 
 
