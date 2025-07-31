@@ -4,13 +4,14 @@ pipeline {
     stages {
         stage('install dependencies') {
             steps {
-                sh '''npm install 
-                npm audit fix'''
+                sh 'npm install'
+                sh 'npm audit fix'
             }
         }
+
         stage('unit testing') {
             steps {
-                sh 'echo "unit testing"'
+                echo 'unit testing'
             }
         }
     }
