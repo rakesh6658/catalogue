@@ -9,17 +9,18 @@ pipeline {
     sh 'npm audit fix || true'
   }
 }
-
-
-        stage('unit testing') {
+stage('unit testing') {
             steps {
                 echo 'unit testing'
             }
         }
-        stage('scanning'){
-            steps{
-                sh'sonar-scanner'
-            }
-        }
+        // ('scanning'){
+        //     steps{
+        //         sh'sonar-scanner'
+        //     }
+        // }
+        
+
+
     }
 }

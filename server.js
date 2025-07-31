@@ -1,4 +1,3 @@
-
 const mongoClient = require('mongodb').MongoClient;
 const mongoObjectID = require('mongodb').ObjectID;
 const bodyParser = require('body-parser');
@@ -16,7 +15,6 @@ const expLogger = expPino({
 });
 
 // MongoDB
-// Actually, this is done by developers. But to reflect we are adding some content and imagine this extra feature
 var db;
 var collection;
 var mongoConnected = false;
@@ -36,7 +34,7 @@ app.use(bodyParser.json());
 
 app.get('/health', (req, res) => {
     var stat = {
-        app: 'OK-2',
+        app: 'OK',
         mongo: mongoConnected
     };
     res.json(stat);
@@ -157,7 +155,7 @@ function mongoConnect() {
         // Mutable & Immutable
         //tlsCAFile: `/home/roboshop/catalogue/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
         // Container
-        tlsCAFile: `/home/roboshop/catalogue/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
+        tlsCAFile: `/app/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
     }, (error, client) => {
     if(error) {
         reject(error);
@@ -187,6 +185,9 @@ mongoLoop();
 
 // fire it up!
 const port = process.env.CATALOGUE_SERVER_PORT || '8080';
+const MONGO = process.env.MONGO || 'false';
+const DOCUMENTDB = process.env.DOCUMENTDB || 'false';
+
 app.listen(port, () => {
     logger.info('Started on port', port);
 });
