@@ -9,7 +9,8 @@ pipeline {
         stage('get version') {
             steps {
                 script {
-                                        env.PACKAGE_VERSION = env.PACKAGE_VERSION = sh(script: "jq -r .version package.json", returnStdout: true).trim()
+                                         def packageJson = readJSON file: 'package.json'
+            env.PACKAGE_VERSION = packageJson.version
                 }
             }
         }
