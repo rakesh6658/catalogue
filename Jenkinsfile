@@ -1,5 +1,8 @@
 pipeline {
     agent { label 'agent-1' }
+    environment{
+        version =''
+    }
 
     stages {
 
@@ -43,11 +46,11 @@ pipeline {
                 echo 'published to artifactory'
             }
         }
-        stage('publish') {
-            steps {
-                echo 'published to artifactory'
-            }
-        }
+        stage ('Starting downstream job ') {
+  steps {
+    build job: 'catalogue-deploy', parameters: [string(name: 'version', value: "${version}" )], propagate: false
+  }
+}
 
     }
 }
