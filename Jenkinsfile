@@ -1,7 +1,14 @@
 pipeline {
-    agent any
+    agent {label 'agent-1'}
 
     stages {
+
+        stage('get version'){
+            script{
+                def version = sh(script: "jq -r .version package.json", returnStdout: true).trim()
+                    echo "Version from package.json is: ${version}"
+            }
+        }
         stage('install dependencies') {
   steps {
     sh 'npm install'
@@ -22,6 +29,11 @@ stage('unit testing') {
         stage('build'){
             steps{
                 sh 'zip -r catalogue.zip . -x "*.zip" ".git/*" '
+            }
+        }
+        stage('publish'){
+            steps{
+                echo 'pulished to artifactory'
             }
         }
         
