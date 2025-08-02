@@ -45,11 +45,15 @@ pipeline {
                 echo 'published to artifactory'
             }
         }
-        stage ('Starting downstream job ') {
-  steps {
-    build job: 'catalogue-deploy', parameters: [string(name: 'version', value: "${env.PACKAGE_VERSION}" )], propagate: false
-  }
+        stage ('Starting downstream job') {
+    steps {
+        build job: 'catalogue-deploy', parameters: [
+            string(name: 'version', value: "${env.PACKAGE_VERSION}"),
+            string(name: 'environment', value: 'dev')
+        ], propagate: false
+    }
 }
+
 
     }
 }
