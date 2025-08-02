@@ -26,11 +26,11 @@ pipeline {
             }
         }
 
-        // stage('scanning') {
-        //     steps {
-        //         sh 'sonar-scanner'
-        //     }
-        // }
+        stage('scanning') {
+            steps {
+                 echo 'scanning'
+            }
+        }
 
         stage('build') {
             steps {
