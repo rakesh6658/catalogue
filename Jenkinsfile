@@ -10,7 +10,7 @@ pipeline {
                     echo "Version from package.json is: ${version}"
             }
         }
-        
+
         stage('install dependencies') {
   steps {
     sh 'npm install'
@@ -42,4 +42,5 @@ stage('unit testing') {
 
 
     }
+}
 }
