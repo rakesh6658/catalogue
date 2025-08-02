@@ -34,15 +34,15 @@ pipeline {
             }
         }
 
-        stage('build') {
-            steps {
-                sh 'zip -r catalogue.zip . -x "*.zip" ".git/*" '
-            }
-        }
+        // stage('build') {
+        //     steps {
+        //         sh 'zip -r catalogue.zip . -x "*.zip" ".git/*" '
+        //     }
+        // }
 
         stage('publish') {
             steps {
-                echo 'published to artifactory'
+                echo "${env.PACKAGE_VERSION}"
             }
         }
         stage ('Starting downstream job') {
