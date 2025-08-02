@@ -4,11 +4,13 @@ pipeline {
     stages {
 
         stage('get version'){
+            steps{
             script{
                 def version = sh(script: "jq -r .version package.json", returnStdout: true).trim()
                     echo "Version from package.json is: ${version}"
             }
         }
+        
         stage('install dependencies') {
   steps {
     sh 'npm install'
