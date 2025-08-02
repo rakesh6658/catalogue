@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'agent-1' }
     environment{
-        version =''
+     PACKAGE_VERSION = ''
     }
 
     stages {
@@ -9,8 +9,7 @@ pipeline {
         stage('get version') {
             steps {
                 script {
-                    def version = sh(script: "jq -r .version package.json", returnStdout: true).trim()
-                    echo "Version from package.json is: ${version}"
+                                        env.PACKAGE_VERSION = env.PACKAGE_VERSION = sh(script: "jq -r .version package.json", returnStdout: true).trim()
                 }
             }
         }
@@ -48,7 +47,7 @@ pipeline {
         }
         stage ('Starting downstream job ') {
   steps {
-    build job: 'catalogue-deploy', parameters: [string(name: 'version', value: "${version}" )], propagate: false
+    build job: 'catalogue-deploy', parameters: [string(name: 'version', value: "${env.PACKAGE_VERSION}" )], propagate: false
   }
 }
 
