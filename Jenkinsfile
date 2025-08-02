@@ -47,7 +47,7 @@ pipeline {
         }
         stage ('Starting downstream job ') {
   steps {
-    build job: '../catalogue-deploy', parameters: [string(name: 'version', value: "${env.PACKAGE_VERSION}" )], propagate: false
+    build job: 'catalogue-deploy', parameters: [string(name: 'version', value: "${env.PACKAGE_VERSION}" )], propagate: false
   }
 }
 
