@@ -37,12 +37,12 @@ pipeline {
             }
         }
 
-        // Optional build stage
-        // stage('build') {
-        //     steps {
-        //         sh 'zip -r catalogue.zip . -x "*.zip" ".git/*" '
-        //     }
-        // }
+        
+        stage('build') {
+            steps {
+                echo 'bulding'
+            }
+        }
 
         stage('publish') {
             steps {
@@ -50,13 +50,13 @@ pipeline {
             }
         }
 
-        // stage('Starting downstream job') {
-        //     steps {
-        //         build job: 'catalogue-deploy', parameters: [
-        //             string(name: 'version', value: "${env.PACKAGE_VERSION}"),
-        //             string(name: 'environment', value: 'dev')
-        //         ], propagate: false
-        //     }
-        // }
+        stage('Starting downstream job') {
+            steps {
+                build job: 'catalogue-deploy', parameters: [
+                    string(name: 'version', value: "$packageVersion"),
+                    string(name: 'environment', value: 'dev')
+                ], propagate: false
+            }
+        }
     }
 }
