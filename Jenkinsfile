@@ -2,7 +2,7 @@ pipeline {
     agent { label 'agent-1' }
 
     environment {
-        PACKAGE_VERSION = ''
+    packageVersion = ''
     }
 
     stages {
@@ -10,9 +10,9 @@ pipeline {
         stage('get version') {
             steps {
                 script {
-                    def packageJson = readJSON file: 'package.json'
-                    env.PACKAGE_VERSION = packageJson.version
-                    echo "Version from package.json: ${env.PACKAGE_VERSION}"
+                    def packageJson = readJSON(file: 'package.json')
+                    packageVersion = packageJson.version
+                    echo "version: ${packageVersion}"
                 }
             }
         }
@@ -46,17 +46,17 @@ pipeline {
 
         stage('publish') {
             steps {
-                echo "Publishing version: ${env.PACKAGE_VERSION}"
+                echo "Publishing version: $packageVersion"
             }
         }
 
-        stage('Starting downstream job') {
-            steps {
-                build job: 'catalogue-deploy', parameters: [
-                    string(name: 'version', value: "${env.PACKAGE_VERSION}"),
-                    string(name: 'environment', value: 'dev')
-                ], propagate: false
-            }
-        }
+        // stage('Starting downstream job') {
+        //     steps {
+        //         build job: 'catalogue-deploy', parameters: [
+        //             string(name: 'version', value: "${env.PACKAGE_VERSION}"),
+        //             string(name: 'environment', value: 'dev')
+        //         ], propagate: false
+        //     }
+        // }
     }
 }
